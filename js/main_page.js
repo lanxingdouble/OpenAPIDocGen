@@ -127,8 +127,9 @@ function get_class_kg_id_by_kg_id(kg_id) {
         },
         success: function (d) {
             class_kg_id = d.kg_id;
-            console.log("get_class_kg_id_by_kg_id:", class_kg_id);
-            window.open("?kg_id=" + class_kg_id);
+            if(class_kg_id>0) {
+                window.open("?kg_id=" + class_kg_id);
+            }
         }
     });
     return class_kg_id;
@@ -149,7 +150,7 @@ function get_class_releated_concept_by_kg_id(kg_id) {
         success: function (d) {
             console.log("################",d);
             if(d.length>0){
-                $("#class_releated_concept").append("<br/><dt><span class=\"seeLabel\">Releated Concept:</span></dt>");
+                $("#class_releated_concept").append("<br/><dt><span class=\"seeLabel\">Related Concept:</span></dt>");
                 $("#class_releated_concept_script").tmpl(d).appendTo("#class_releated_concept");
                 $("#class_releated_concept").show();
             }
@@ -801,7 +802,7 @@ function jumpClick() {
                 console.log("kg_id:", class_kg_id);
                 //get_class_description(class_kg_id);
                 if(class_releated_concept.length>0){
-                    $("#class_releated_concept").append("<br/><dt><span class=\"seeLabel\">Releated Concept:</span></dt>");
+                    $("#class_releated_concept").append("<br/><dt><span class=\"seeLabel\">Related Concept:</span></dt>");
                     $("#class_releated_concept_script").tmpl(class_releated_concept).appendTo("#class_releated_concept");
                     $("#class_releated_concept").show();
                 }

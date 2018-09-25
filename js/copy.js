@@ -117,7 +117,9 @@ function get_class_kg_id_by_kg_id(kg_id) {
         success: function (d) {
             class_kg_id = d.kg_id;
             console.log("get_class_kg_id_by_kg_id:", class_kg_id);
-            window.open("?kg_id=" + class_kg_id);
+            if(class_kg_id>0) {
+                window.open("?kg_id=" + class_kg_id);
+            }
         }
     });
     return class_kg_id;
