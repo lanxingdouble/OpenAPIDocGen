@@ -1,0 +1,333 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OpenAPIDocGen</title>
+</head>
+<body>
+
+<script id="class_releated_concept_script" type="text/x-jquery-tmpl">
+   <dd><a target="_blank" href="${url}" >${name}</a></dd>
+</script>
+<script id="class_see_also_script" type="text/x-jquery-tmpl">
+   <dd><a onclick="get_class_kg_id_by_kg_id(${kg_id})" target="_blank" title=${api_name}>${simple_api_name}</a></dd>
+</script>
+
+<script id="method_summary_tbody_script" type="text/x-jquery-tmpl">
+    <tr class="altColor">
+        <td class="colFirst"><code>${return_type}</code></td>
+        <td class="colLast"><code><strong>${method_name}</strong></code>
+        <div class="block">${method_des}</div>
+        </td>
+    </tr>
+</script>
+
+<script id="method_detail_script" type="text/x-jquery-tmpl">
+    <ul class="blockList">
+       <li class="blockList" >
+       <h2>${method_name}</h2>
+        <ul class="blockList">
+            <li class="blockList">
+                <pre>${declaration}</pre>
+                <div class="block">${class_define}</div>
+                <dl>
+                    {{if method_descriptions_list.length >= 1}}
+                       {{each(j,group) method_descriptions_list}}
+                         {{if group.method_description_from_comment}}
+                            <dd>${group.method_description_from_comment}</dd>
+                         {{else}}
+                            {{if group.short_description}}
+                            <dd>${group.short_description}</dd>
+                            {{else}}
+                               {{if group.poi_human_description}}
+                               <dd>${group.poi_human_description}</dd>
+                               {{else}}
+                                  {{if group.poi_rule_description}}
+                                  <dd>${group.poi_rule_description}</dd>
+                                  {{else}}
+                                     {{if group.poi_deep_learning_description}}
+                                     <dd>${group.poi_deep_learning_description}</dd>
+                                     {{else}}
+                                     {{/if}}
+                                  {{/if}}
+                               {{/if}}
+                            {{/if}}
+                         {{/if}}
+                       {{/each}}
+                    {{else}}
+                    {{/if}}
+                    <dt><span class="returnLabel">Returns:</span></dt>
+                    <dd>${return_type}</dd>
+                    {{if related_concept.length >= 1}}
+                       <dt><span class="seeLabel">Releated Concept:</span></dt>
+                       {{each(j,group) related_concept}}
+                         <dd><a href="${group.url}" target="_blank" >${group.name}</a></dd>
+                       {{/each}}
+                    {{else}}
+                    {{/if}}
+                    <dt><span class="seeLabel">See Also:</span></dt>
+                    {{if see_also.length >= 1}}
+                       {{each(j,group) see_also}}
+                         <dd><a onclick="get_class_kg_id_by_kg_id(${group.kg_id})" target="_blank" title=${group.api_name}>${group.simple_api_name}</a></dd>
+                       {{/each}}
+                    {{else}}
+                        <dd>null</dd>
+                    {{/if}}
+                </dl>
+                <div class="click_show_detail" id=${method_kg_id}  onclick="click_for_more_details(this,this.children,${method_kg_id})">Click For More Details
+                <div class="show_detail" id="method_functional${method_kg_id}" style="display:none text-decoration:none">
+                </div>
+                <div class="show_detail" id="methoddirective${method_kg_id}" style="display:none text-decoration:none">
+                </div>
+                <div class="show_detail" id="method_post${method_kg_id}" style="display:none text-decoration:none">
+                </div>
+                <div class="show_detail" id="method_sample_code${method_kg_id}" style="display:none text-decoration:none">
+                </div>
+                </div>
+            </li>
+            </ul>
+        </li>
+    </ul>
+</script>
+
+<script id="method_detail_script2" type="text/x-jquery-tmpl">
+    <ul class="blockList">
+       <li class="blockList" >
+       <h2>${method_name}</h2>
+        <ul class="blockList">
+            <li class="blockList">
+                <pre>${declaration}</pre>
+                <div class="block">${class_define}</div>
+                <dl>
+                    <dt><span class="returnLabel">Returns:</span></dt>
+                    <dd>${return_type}</dd>
+                    <dt><span class="seeLabel">See Also:</span></dt>
+                    {{if see_also.length >= 1}}
+                       {{each(j,group) see_also}}
+                         <dd><a onclick="get_class_kg_id_by_kg_id(${group.kg_id})" target="_blank" title=${group.api_name}>${group.simple_api_name}</a></dd>
+                       {{/each}}
+                    {{else}}
+                        null
+                    {{/if}}
+                     <dt><span class="seeLabel">Related Discussion:</span></dt>
+                    {{if related_post_url.length >=1}}
+                       {{each(j,group) related_post_url}}
+                         <dd><a href=${group.post_url} target="_blank">${group.post_question}</a></dd>
+                       {{/each}}
+                    {{else}}
+                        null
+                    {{/if}}
+               <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading${method_kg_id}">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse${method_kg_id}" aria-expanded="false" aria-controls="collapse${method_kg_id}">
+                                More Detail
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse${method_kg_id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading${method_kg_id}">
+                        <div class="panel-body">
+                            <dt><span class="returnLabel">method functional sentences:</span></dt>
+                            <dd>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </dd>
+                            <dt><span class="returnLabel">method directive sentences:</span></dt>
+                            <dd>
+                            aentence !!!!!!!
+                            </dd>
+                            <dt><span class="returnLabel">method example code</span></dt>
+                             <dd>
+                              dmoewwcnejknckjenvejk
+                            </dd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </li>
+            </ul>
+        </li>
+    </ul>
+</script>
+
+<script id="post_detail_script" type="text/x-jquery-tmpl">
+    <ul class="blockList">
+       <li class="blockList" >
+       <h4>${name}</h4>
+        <ul class="blockList">
+            <li class="blockList">
+                <div class="block"><a href=${post_url} target="_blank">${post_question}</a></div>
+                <dl>
+                    <dt><span class="seeLabel">post type:</span><dd>${post_type}</dd></dt>
+                    <dt><span class="seeLabel">summary:</span></dt>
+                    <dd>${post_summary}</dd>
+                </dl>
+            </li>
+         </ul>
+        </li>
+    </ul>
+</script>
+
+<!--<script id=inheritance_script type="text/x-jquery-tmpl">-->
+<!--<li>-->
+<!--inheritance_tree:-->
+<!--<ul>{{each inheritance}}<li>${$index + 1}: <label>${$value}. </label></li>{{/each}}-->
+<!--</ul>-->
+<!--</li>-->
+<!--</script>-->
+
+<script id=code_description_script type="text/x-jquery-tmpl">
+    <ul class="blockList">
+       <li class="blockList" >
+            <ul class="blockList">
+                <li class="blockList">
+                    <pre>${code_text}</pre>
+                    {{if see_also}}
+                        <dt><span class="seeLabel">code_summary:</span></dt>
+                        <dd>${code_summary}</dd>
+                    {{else}}
+                    {{/if}}
+                </li>
+           </ul>
+       </li>
+    </ul>
+</script>
+
+<script id=more_method_datail_script type="text/x-jquery-tmpl">
+         <dt><span class="seeLabel">method example code</span></dt>
+         {{if method_example_code.length >= 1}}
+            {{each(j,group) method_example_code}}
+                <pre>${group.code_text}</pre>
+                <dt><span class="seeLabel">code_summary:</span></dt>
+                <dd>${group.code_summary}</dd>
+            {{/each}}
+         {{else}}
+            null
+         {{/if}}
+         <dt><span class="seeLabel">method releated sentences:</span></dt>
+         {{if functional_sentences.length >=1}}
+            {{each(j,group) related_post_url}}
+                <dd><a href=${group.post_url} target="_blank">${group.post_question}</a></dd>
+            {{/each}}
+         {{else}}
+            null
+         {{/if}}
+</script>
+
+<script id=directive_sentence_description_script type="text/x-jquery-tmpl">
+   <dd><li><a href="${source_info.post_url}" target="_blank">${text}</li></a></dd>
+</script>
+
+<script id=functional_sentence_description_script type="text/x-jquery-tmpl">
+   <dd><li><a href="${source_info.post_url}" target="_blank">${text}</li></a></dd>
+</script>
+
+<script type="text/x-jquery-tmpl" id="labelTemplate">
+    <div id="labelItem">
+        <label>
+            <input type="checkbox" value="${name}" id="label-${name}" onclick="labelCheckClick('${name}')" checked="checked">
+            <label><span class='label' style='background-color:${color}'>${name}</span></label>
+        </label>
+    </div>
+</script>
+
+<div class="main-title">
+    <div class="text-center">OpenAPIDocGen: Automatic API Documentation Generation for Open-Source Projects</div>
+    <div class="input-jump center-block">
+        <div class="col-lg">
+            <div class="input-group">
+                <input type="text" autocomplete="on" class="form-control" onkeydown="keyup_submit(event)"
+                       placeholder="enter fully qualified class name...">
+                <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" id="bt1" onclick="jumpClick()">SEARCH
+                        </button>
+                </span>
+                <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" id="bt2" onclick="refresh()">REFRESH
+                        </button>
+                </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div>
+</div>
+
+<div id="show_class_name">
+
+</div>
+
+<div id="inheritance">
+</div>
+
+<div class="description" style="display:none">
+    <div class="block" id="class_description">
+    </div>
+    <div class="block" id="class_releated_concept">
+    </div>
+    <div class="block" id="class_see_also">
+    </div>
+</div>
+
+<button id="bt3" type="button" class="btn btn-info btn-sm" onclick="show_hide_graph()" style="display:none">Knowledge Graph
+</button>
+
+<div class="showGroup" style="display:none">
+    <div id="labelProperty">
+        <div id="labelList">
+        </div>
+    </div>
+
+    <div id="Graph" >
+        <div id="GraphContainer">
+        </div>
+    </div>
+</div>
+
+<ul id="accordion" class="accordion" style="display:none">
+
+    <li>
+        <div class="link"><i class="fa"></i>Hints<i class="fa fa-chevron-down"></i></div>
+        <ul class="submenu" id="sentence_description">
+
+        </ul>
+    </li>
+    <li>
+
+        <div class="link"><i class="fa"></i>Related Discussions<i class="fa fa-chevron-down"></i></div>
+        <ul class="submenu" id="post_detail">
+
+        </ul>
+    </li>
+
+    <li>
+        <div class="link"><i class="fa"></i>Sample Code<i class="fa fa-chevron-down"></i></div>
+        <ul class="submenu" id="code_description">
+
+        </ul>
+    </li>
+    <li>
+        <div class="link"><i class="fa"></i>Methods <i class="fa fa-chevron-down"></i></div>
+        <ul class="submenu" id="method_detail">
+
+        </ul>
+    </li>
+</ul>
+
+</body>
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" media="screen" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="css/main_page.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="css/neo4jd3.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/fonts/dejavu.css"> -->
+<script src="js/generateRandomColor.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery.tmpl.js"></script>
+<script src="js/jquery.tmpl.min.js"></script>
+<script src="js/jquery.tmplPlus.js"></script>
+<script src="js/jquery.tmplPlus.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/neo4jGraph.js"></script>
+<script src="js/flowPanel.js"></script>
+<script src="js/main_page.js"></script>
+</html>
