@@ -83,15 +83,15 @@ $(document).ready(function () {
     var thisURL = document.URL;
     if(thisURL.indexOf("?") != -1){
         var getval = thisURL.split('?')[1];
-        console.log(getval);
+        //console.log(getval);
         var first_kg_id = getval.split("=")[1];
-        console.log("#class_description",$("#class_description").html);
+        //console.log("#class_description",$("#class_description").html);
         $(".details").show();
         $(".description").show();
         $("#accordion").show();
         $("#bt3").show();
-        console.log(thisURL);
-        console.log("loading:", first_kg_id);
+        //console.log(thisURL);
+        //console.log("loading:", first_kg_id);
         get_inheritance_tree(first_kg_id);
         get_class_releated_concept_by_kg_id(first_kg_id);
         get_class_description(first_kg_id);
@@ -102,7 +102,7 @@ $(document).ready(function () {
         get_functional_sentences(first_kg_id, class_mode, 0);
         get_directive_sentences(first_kg_id, class_mode, 0);
         get_expand_nodes(first_kg_id);
-        console.log("first loading,auto");
+        //console.log("first loading,auto");
     }
     //
     //
@@ -148,7 +148,7 @@ function get_class_releated_concept_by_kg_id(kg_id) {
             console.log(xhr);
         },
         success: function (d) {
-            console.log("################",d);
+            //console.log("################",d);
             if(d.length>0){
                 $("#class_releated_concept").append("<br/><dt><span class=\"seeLabel\">Related Concept:</span></dt>");
                 $("#class_releated_concept_script").tmpl(d).appendTo("#class_releated_concept");
@@ -171,7 +171,7 @@ function get_inheritance_tree(kg_id) {
             console.log(xhr);
         },
         success: function (d) {
-            console.log("inheritance:", d);
+            //console.log("inheritance:", d);
             br = "";
             for (var i = 0; i < d.length; i++) {
                 l = "<ur>" + br + d[i].api_name + "</ur><br/>";
@@ -197,7 +197,7 @@ function get_class_description(kg_id) {
             console.log(xhr);
         },
         success: function (d) {
-            console.log("class description:", d.description);
+            //console.log("class description:", d.description);
             //console.log("class_releated_concept:", class_releated_concept);
             if(d.description) {
                 if(d.description.method_description_from_comment){
@@ -239,16 +239,16 @@ function get_class_releated_api(kg_id) {
             console.log(xhr);
         },
         success: function (d) {
-            console.log("class see also:", d);
+            //console.log("class see also:", d);
             if (d.length > 0) {
-                console.log("start fill class see also:", d);
+                //console.log("start fill class see also:", d);
                 for (var i = 0; i < d.length; i++) {
                     d[i]["simple_api_name"] = get_simple_name(d[i].api_name);
                 }
                 //$("#class_description").append("<br/><dt><span class=\"seeLabel\">See Also:</span></dt>");
                 $("#class_see_also").append("<br/><dt><span class=\"seeLabel\">See Also:</span></dt>");
                 $("#class_see_also_script").tmpl(d).appendTo("#class_see_also");
-                console.log("class api releated:", d)
+                //console.log("class api releated:", d)
                 $("#class_see_also").show();
             }
         }
@@ -268,7 +268,7 @@ function get_method_detail(kg_id) {
             console.log(xhr);
         },
         success: function (d) {
-            console.log("method:", d);
+            //console.log("method:", d);
             if (d.length) {
                 for (var i = 0; i < d.length; i++) {
                     //see_also名字截取class+method
@@ -288,7 +288,7 @@ function get_method_detail(kg_id) {
                     method_description.push( d[i]["method_descriptions_json"]);
                     d[i]["method_descriptions_list"]=method_description;
                 }
-                console.log("new methods:", d);
+                //console.log("new methods:", d);
                 $("#method_detail_script").tmpl(d).appendTo("#method_detail");
             }
         }
@@ -329,7 +329,7 @@ function get_releated_post(kg_id, mode, item) {
                 console.log(xhr);
             },
             success: function (d) {
-                console.log("post:", d);
+                //console.log("post:", d);
                 if (mode == 1) {
                     if (d.length > 0) {
                         $("#post_detail_script").tmpl(d).appendTo("#post_detail");
@@ -374,7 +374,7 @@ function get_example_code(kg_id, mode, item) {
                 console.log(xhr);
             },
             success: function (d) {
-                console.log("sample code:", d);
+                //console.log("sample code:", d);
                 if (mode == 1) {
                     if (d.length) {
                         $("#code_description_script").tmpl(d).appendTo("#code_description");
@@ -415,7 +415,7 @@ function get_functional_sentences(kg_id, mode, item) {
             console.log(xhr);
         },
         success: function (d) {
-            console.log("functional_sentence:", d);
+            //console.log("functional_sentence:", d);
             if (mode == 1) {
                 if (d.length) {
                     //$("#sentence_description").append("<br/><dt><span class=\"returnLabel\">Functional Sentences:</span></dt>");
@@ -455,7 +455,7 @@ function get_directive_sentences(kg_id, mode, item) {
             console.log(xhr);
         },
         success: function (d) {
-            console.log("directive_sentence:", d);
+            //console.log("directive_sentence:", d);
 
             if (mode == 1) {
                 if (d.length) {
@@ -528,7 +528,7 @@ function get_expand_nodes(kg_id) {
                 labelProperty.push(color_label);
                 // color_index += 1;
             }
-            console.log("labelProperty:", labelProperty);
+            //console.log("labelProperty:", labelProperty);
             neo4jd3.cleanGraph();
             $.each(d.nodes, function (i, val) {
                 if(d.nodes[i]["labels"][0]=="API Method") {
@@ -552,7 +552,7 @@ function get_expand_nodes(kg_id) {
                 new_relation["properties"] = {};
                 new_relations.push(new_relation);
             }
-            console.log("第一次加载new_relations:",new_relations);
+            //console.log("第一次加载new_relations:",new_relations);
             let D3Data = {
                 "nodes": new_nodes,
                 "relationships": new_relations
@@ -560,9 +560,9 @@ function get_expand_nodes(kg_id) {
             neo4jd3.updateWithD3Data(D3Data);
             neo4jd3.nodesColor();
             nodesAndRelations.push(D3Data);
-            console.log("第一次加载nodeandrelation :",nodesAndRelations);
-            console.log("加载时labelstuteliae:",labelStatusList);
-            console.log(d);
+            //console.log("第一次加载nodeandrelation :",nodesAndRelations);
+            //console.log("加载时labelstuteliae:",labelStatusList);
+            //console.log(d);
         }
     });
 }
@@ -601,7 +601,7 @@ function onNodeDoubleClick(d) {
                     //color_index += 1;
                 }
             });
-            console.log("labelProperty:", labelProperty);
+            //console.log("labelProperty:", labelProperty);
             $.each(d.nodes, function (i, val) {
                 if(d.nodes[i]["labels"][0]=="API Method") {
                     d.nodes[i]["name"] = get_simple_name(d.nodes[i]["name"]);
@@ -617,20 +617,20 @@ function onNodeDoubleClick(d) {
                 let new_relation = {};
                 new_relation["id"] = relation.id;
                 new_relation["source"] = relation.start_id;
-                console.log("relation.start_id:",relation.start_id);
+                //console.log("relation.start_id:",relation.start_id);
                 new_relation["target"] = relation.end_id;
                 new_relation["startNode"] = relation.start_id;
-                console.log("relation.startNode:",relation.start_id);
+                //console.log("relation.startNode:",relation.start_id);
                 new_relation["endNode"] = relation.end_id;
                 new_relation["type"] = relation.name;
                 new_relation["properties"] = {};
-                console.log("new_relation:",new_relation);
+                //console.log("new_relation:",new_relation);
                 new_relations.push(new_relation);
             }
-            console.log("扩展new_relations:",new_relations);
+            //console.log("扩展new_relations:",new_relations);
             for(var i=0;i<new_relations.length;i++){
-                console.log(new_relations[i]);
-                console.log(i,typeof(new_relations[i]["source"]));
+                //console.log(new_relations[i]);
+                //console.log(i,typeof(new_relations[i]["source"]));
                 if(typeof(new_relations[i]["source"])=="number"){
                     for(var j=0;j<new_nodes.length;j++){
                         if(new_nodes[j]["id"]==new_relations[i]["source"]){
@@ -646,7 +646,7 @@ function onNodeDoubleClick(d) {
                     }
                 }
             }
-            console.log("扩展改后new_relations:",new_relations);
+            //console.log("扩展改后new_relations:",new_relations);
             let D3Data = {
                 "nodes": new_nodes,
                 "relationships": new_relations
@@ -657,8 +657,8 @@ function onNodeDoubleClick(d) {
             //getRelationSet(d.relations);
             //getRelationStatusList(d.relations);
             nodesAndRelations.push(D3Data);
-            console.log("扩展nodeandrelation :",nodesAndRelations);
-            console.log("click expand node: ",d);
+            //console.log("扩展nodeandrelation :",nodesAndRelations);
+            //console.log("click expand node: ",d);
         }
     });
 
@@ -695,11 +695,11 @@ function get_simple_method_name(long_name) {
 //具体method中more_detail折叠事件
 function click_for_more_details(click,item, method_kg_id) {
     var content = $(item[0]).css('display');
-    console.log("display :",content);
-    console.log("ahidhdhof :",$(item[0]).html());
-    console.log("ahidhdhof@@@@@@@@@@@ :",$(item[0]).html().length);
+    //console.log("display :",content);
+    //console.log("ahidhdhof :",$(item[0]).html());
+   // console.log("ahidhdhof@@@@@@@@@@@ :",$(item[0]).html().length);
     if ($(item[0]).html().length<25 ) {//第一次加载点开展开
-        console.log("@@@@@@:",content);
+        //console.log("@@@@@@:",content);
         get_functional_sentences(method_kg_id, method_mode,item[0]);
         get_directive_sentences(method_kg_id, method_mode,item[1]);
         get_releated_post(method_kg_id, method_mode,item[2]);
@@ -756,7 +756,7 @@ function show_hide_graph(){
 
 //搜索按钮事件
 function jumpClick() {
-    console.log(labelProperty);
+    //console.log(labelProperty);
     // $(".accordion").css('list-style-type', 'none');
     // $("#inheritance").html("");
     // $("#code_description").html("");
@@ -792,12 +792,12 @@ function jumpClick() {
                 console.log(xhr);
             },
             success: function (d) {
-                console.log(labelProperty);
-                console.log("api search:", d);
+                //console.log(labelProperty);
+                //console.log("api search:", d);
                 class_kg_id = d.kg_id;
                 class_releated_concept = d.related_concept;
-                console.log("class_releated_concept:", class_releated_concept);
-                console.log("kg_id:", class_kg_id);
+                //console.log("class_releated_concept:", class_releated_concept);
+                //console.log("kg_id:", class_kg_id);
                 //get_class_description(class_kg_id);
                 if (class_kg_id > 0) {
                     $(".details").show();
@@ -818,7 +818,7 @@ function jumpClick() {
                     get_functional_sentences(class_kg_id, class_mode, 0);
                     get_directive_sentences(class_kg_id, class_mode, 0);
                     get_expand_nodes(class_kg_id);
-                    console.log("first loading,auto@@@@@@@@@@@");
+                    //console.log("first loading,auto@@@@@@@@@@@");
                     //window.location.href = "?kg_id=" + class_kg_id;
                 }else{
                     alert("please enter fully qualified class name");
@@ -947,7 +947,7 @@ function deletaNode() {
 
 //选择label
 function labelCheckClick(name) {
-    console.log("前labelStatusList: ",labelStatusList);
+    //console.log("前labelStatusList: ",labelStatusList);
     let checkName = "label-" + name;
     /*    console.log(checkName);
         console.log(document.getElementById(checkName));
@@ -962,11 +962,11 @@ function labelCheckClick(name) {
 }
 
 function repaintNodes() {
-    console.log("画点repaintNodes @@@ nodesAndRelations" ,nodesAndRelations);
+    //console.log("画点repaintNodes @@@ nodesAndRelations" ,nodesAndRelations);
     let originTypeList = getRelationTypes(nodesAndRelations);
     neo4jd3.cleanGraph();
     let tempNR = cloneObj(nodesAndRelations);
-    console.log("画点labelStatusList :",labelStatusList);
+    //console.log("画点labelStatusList :",labelStatusList);
     for (let i = 0; i < labelStatusList.length; i++) {
         for (let j = 0; j < tempNR.length; j++) {
             for (let k = 0; k < tempNR[j].relationships.length; k++) {
@@ -995,7 +995,7 @@ function repaintNodes() {
     }
 
     let newTypeList = getRelationTypes(tempNR);
-    console.log(newTypeList);
+    //console.log(newTypeList);
 
     changeRelationCheckboxStatus(originTypeList, newTypeList);
 
@@ -1018,7 +1018,7 @@ function repaintNodes() {
     for (let i = 0; i < tempNR.length; i++) {
         neo4jd3.updateWithD3Data(tempNR[i]);
     }
-    console.log("画点nodesAndRelations： ",nodesAndRelations);
+    //console.log("画点nodesAndRelations： ",nodesAndRelations);
 }
 
 function cloneObj(obj) {
@@ -1044,12 +1044,12 @@ function changeLabelStatus(label, status) {
             return;
         }
     }
-    console.log("labelStatusList+++: ",labelStatusList);
+    //console.log("labelStatusList+++: ",labelStatusList);
     let temp = {};
     temp["name"] = label;
     temp["status"] = status;
     labelStatusList.push(temp);
-    console.log("labelStatusList___: ",labelStatusList);
+    //console.log("labelStatusList___: ",labelStatusList);
 }
 
 function changeRelationStatus(relation, status) {
