@@ -780,8 +780,6 @@ function jumpClick() {
     var textvalue = $("input[class='form-control']").val();
     if (textvalue.length != '') {
         class_releated_concept=[];
-        $(".details").show();
-        $(".description").show();
         $.ajax({
             async: true,
             url: "http://bigcode.fudan.edu.cn/dysd3/APISearch/",
@@ -797,28 +795,34 @@ function jumpClick() {
                 console.log(labelProperty);
                 console.log("api search:", d);
                 class_kg_id = d.kg_id;
-                class_releated_concept=d.related_concept;
+                class_releated_concept = d.related_concept;
                 console.log("class_releated_concept:", class_releated_concept);
                 console.log("kg_id:", class_kg_id);
                 //get_class_description(class_kg_id);
-                if(class_releated_concept.length>0){
-                    $("#class_releated_concept").append("<br/><dt><span class=\"seeLabel\">Related Concept:</span></dt>");
-                    $("#class_releated_concept_script").tmpl(class_releated_concept).appendTo("#class_releated_concept");
-                    $("#class_releated_concept").show();
+                if (class_kg_id > 0) {
+                    $(".details").show();
+                    $(".description").show();
+                    if (class_releated_concept.length > 0) {
+                        $("#class_releated_concept").append("<br/><dt><span class=\"seeLabel\">Related Concept:</span></dt>");
+                        $("#class_releated_concept_script").tmpl(class_releated_concept).appendTo("#class_releated_concept");
+                        $("#class_releated_concept").show();
+                    }
+                    $("#accordion").show();
+                    $("#bt3").show();
+                    get_inheritance_tree(class_kg_id);
+                    get_class_description(class_kg_id);
+                    get_class_releated_api(class_kg_id);
+                    get_method_detail(class_kg_id);
+                    get_releated_post(class_kg_id, class_mode, 0);
+                    get_example_code(class_kg_id, class_mode, 0);
+                    get_functional_sentences(class_kg_id, class_mode, 0);
+                    get_directive_sentences(class_kg_id, class_mode, 0);
+                    get_expand_nodes(class_kg_id);
+                    console.log("first loading,auto@@@@@@@@@@@");
+                    //window.location.href = "?kg_id=" + class_kg_id;
+                }else{
+                    alert("please enter fully qualified class name");
                 }
-                $("#accordion").show();
-                $("#bt3").show();
-                get_inheritance_tree(class_kg_id);
-                get_class_description(class_kg_id);
-                get_class_releated_api(class_kg_id);
-                get_method_detail(class_kg_id);
-                get_releated_post(class_kg_id, class_mode,0);
-                get_example_code(class_kg_id, class_mode,0);
-                get_functional_sentences(class_kg_id, class_mode, 0);
-                get_directive_sentences(class_kg_id, class_mode, 0);
-                get_expand_nodes(class_kg_id);
-                console.log("first loading,auto@@@@@@@@@@@");
-                //window.location.href = "?kg_id=" + class_kg_id;
             }
         });
     } else {
