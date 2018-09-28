@@ -523,8 +523,8 @@ function get_expand_nodes(kg_id) {
                 color_label["color"] = generateRandomColor(color_index);
                 color_label["name"] = value;
                 //console.log("color_label", color_label);
-                console.log(labelProperty);
-                console.log(labelProperty.push("@@@@@@@@@@@@@@2"));
+                //console.log(labelProperty);
+                //console.log(labelProperty.push("@@@@@@@@@@@@@@2"));
                 labelProperty.push(color_label);
                 // color_index += 1;
             }
@@ -560,9 +560,9 @@ function get_expand_nodes(kg_id) {
             neo4jd3.updateWithD3Data(D3Data);
             neo4jd3.nodesColor();
             nodesAndRelations.push(D3Data);
-            //console.log("第一次加载nodeandrelation :",nodesAndRelations);
+            console.log("第一次加载nodeandrelation :",nodesAndRelations);
             //console.log("加载时labelstuteliae:",labelStatusList);
-            //console.log(d);
+            console.log(d);
         }
     });
 }
@@ -617,17 +617,15 @@ function onNodeDoubleClick(d) {
                 let new_relation = {};
                 new_relation["id"] = relation.id;
                 new_relation["source"] = relation.start_id;
-                //console.log("relation.start_id:",relation.start_id);
                 new_relation["target"] = relation.end_id;
                 new_relation["startNode"] = relation.start_id;
-                //console.log("relation.startNode:",relation.start_id);
                 new_relation["endNode"] = relation.end_id;
                 new_relation["type"] = relation.name;
                 new_relation["properties"] = {};
-                //console.log("new_relation:",new_relation);
                 new_relations.push(new_relation);
             }
             //console.log("扩展new_relations:",new_relations);
+            //修复双击扩展后不能选择label的bug，因为有部分["source"]["target"],不是节点
             for(var i=0;i<new_relations.length;i++){
                 //console.log(new_relations[i]);
                 //console.log(i,typeof(new_relations[i]["source"]));
@@ -651,12 +649,14 @@ function onNodeDoubleClick(d) {
                 "nodes": new_nodes,
                 "relationships": new_relations
             };
+            console.log("D3Data:",D3Data);
+            nodesAndRelations.push(D3Data);
             neo4jd3.updateWithD3Data(D3Data);
             //getRelationStatusList(d.relations);
             neo4jd3.nodesColor();
             //getRelationSet(d.relations);
             //getRelationStatusList(d.relations);
-            nodesAndRelations.push(D3Data);
+            repaintNodes();//修复被双击点拖动后点和关系脱离的bug
             //console.log("扩展nodeandrelation :",nodesAndRelations);
             //console.log("click expand node: ",d);
         }
@@ -1016,6 +1016,7 @@ function repaintNodes() {
     }
 
     for (let i = 0; i < tempNR.length; i++) {
+        console.log("repaint node:",tempNR);
         neo4jd3.updateWithD3Data(tempNR[i]);
     }
     //console.log("画点nodesAndRelations： ",nodesAndRelations);
